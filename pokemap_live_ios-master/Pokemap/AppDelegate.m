@@ -24,7 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Fabric with:@[[Crashlytics class]]];
-
+    
     [[UICKeyChainStore keyChainStore] setString:nil forKey:@"api_url"];
     
     [RFLocationManager instance];
@@ -49,31 +49,31 @@
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
     NSLog(@"Entered background");
-   
     
-        UIApplication *app = [UIApplication sharedApplication];
-        UIBackgroundTaskIdentifier bgTask;
-        bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
-            [app endBackgroundTask:bgTask];
-             [[RFMapObjectsManager instance] pauseUpdateTimer];
-            
-            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-            if (localNotification == nil)
-            {
-                return;
-            }
-            else
-            {
-                localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
-                localNotification.alertAction = nil;
-                localNotification.soundName = UILocalNotificationDefaultSoundName;
-                localNotification.alertBody = @"Reopen app to continue scanning";
-                localNotification.alertAction = NSLocalizedString(@"Stopped Scanning", nil);
-                localNotification.applicationIconBadgeNumber=1;
-                localNotification.repeatInterval=0;
-                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-            }
-        }];
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    UIBackgroundTaskIdentifier bgTask;
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        [app endBackgroundTask:bgTask];
+        [[RFMapObjectsManager instance] pauseUpdateTimer];
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        if (localNotification == nil)
+        {
+            return;
+        }
+        else
+        {
+            localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:0];
+            localNotification.alertAction = nil;
+            localNotification.soundName = UILocalNotificationDefaultSoundName;
+            localNotification.alertBody = @"Reopen app to continue scanning";
+            localNotification.alertAction = NSLocalizedString(@"Stopped Scanning", nil);
+            //localNotification.applicationIconBadgeNumber=1;
+            localNotification.repeatInterval=0;
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

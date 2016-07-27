@@ -945,7 +945,7 @@
             localNotification.soundName = UILocalNotificationDefaultSoundName;
             localNotification.alertBody = [NSString stringWithFormat:@"%@%@",  @"Spotted Pokemon: ", pokeString];
             localNotification.alertAction = NSLocalizedString(@"Rare Pokemanz", nil);
-            localNotification.applicationIconBadgeNumber=1;
+            //localNotification.applicationIconBadgeNumber=1;
             localNotification.repeatInterval=0;
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
